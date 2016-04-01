@@ -1,13 +1,17 @@
-require 'linked_list'
+require_relative 'linked_list'
 
 class JungleBeat
+  attr_reader :beats
 
-  def initialize(beats)
-    split_beats
+  def initialize(beats = nil)
+    @beats = beats
   end
 
-  def split_beats(beats)
-    beats.split.map do |node|
-      Node.new(node)
+  def split_beats
+    unless beats == nil
+      @beats = beats.split
+    end
+    beats
   end
+
 end
