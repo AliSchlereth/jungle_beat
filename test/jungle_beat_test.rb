@@ -8,7 +8,7 @@ class JungleBeatTest <Minitest::Test
 
   def test_jungle_beat_can_initialize_an_empty_head
     jungle_beat = JungleBeat.new
-    assert_equal nil, jungle_beat.split_beats
+    assert_equal [], jungle_beat.split_beats
   end
 
   def test_jungle_beat_can_split_a_string
@@ -17,10 +17,18 @@ class JungleBeatTest <Minitest::Test
     assert_equal ["purple", "green"], jungle_beat.split_beats
   end
 
-  def test_jungle_beat_can_use_split_beats_to_create_a_linked_list
+  def test_jungle_beat_can_split_beats
     jungle_beat = JungleBeat.new("purple green")
 
-    assert_equal "purple", jungle_beat.initiate_linked_list.head.data
-    assert_equal "green", jungle_beat.initiate_linked_list.head.next_node.data
+    assert_equal ["purple", "green"], jungle_beat.split_beats
+  end
+
+  def test_jungle_beats_can_create_linked_list
+    jungle_beat = JungleBeat.new("purple green white")
+
+    jungle_beat.initiate_linked_list
+    assert_equal "purple", jungle_beat.head.data
+    assert_equal "green", jungle_beat.head.next_node.data
+    assert_equal "white", jungle_beat.head.next_node.next_node.data
   end
 end
