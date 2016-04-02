@@ -1,38 +1,38 @@
 require_relative 'linked_list'
 
 class JungleBeat
-  attr_reader :beats
+  attr_reader :beats, :list
 
   def initialize(beats = nil)
+    # If I change nil to "" will it still pass the test?
+    # Test requires a return of nil
     @beats = beats
-    split_beats
+    @list = LinkedList.new
+    append(beats) if beats
+    # split_beats
   end
 
-  def split_beats
+  def split_beats(beats = nil)
     unless beats == nil
-      @beats = beats.split
+       split_beats = beats.split
+      # Why don't I need @beats if I'm changing beats?
     end
-    beats
   end
 
-  def initiate_linked_list
-    if beats == nil
-      list = LinkedList.new(beats)
-    else
-      list = LinkedList.new(beats.shift)
-    # Take argument of split beats
-    # first beat create a new linked list
-        unless beats.count == 0
-          beats.map do |beat|
-          list.append(beat)
-        end
-      list
-      binding.pry
-      end
-
-    # any further beats get added on to said linked list
-    # result should be a complete linked list
+  def append(new_beats)
+    beats = split_beats(new_beats)
+    beats.map do |beat|
+      list.append(beat)
+    end
+    new_beats
   end
+
+  def count
+    list.count
+  end
+
+  def play
+    `say -r 500 -v Boing #{list.to_string}`
   end
 
 end

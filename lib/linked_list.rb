@@ -5,22 +5,29 @@ class LinkedList
 
   # head takes initial data
   def initialize(node = nil)
-    @head = Node.new(node)
-    # @all_nodes = []
+    if node
+      @head = Node.new(node)
+    else
+      @head = nil
+    end
   end
 
   def append(new_node)
     # create temporary holder
     current_node = head
     # starts at temporary holder
-    until current_node.next_node == nil
-    # slide along nodes until empty
-      current_node = current_node.next_node
+    if current_node
+      until current_node.next_node == nil
+      # slide along nodes until empty
+        current_node = current_node.next_node
+      end
+      # connect nodes together by attaching
+      # new node to current node
+      current_node.next_node = Node.new(new_node)
+    else
+      @head = Node.new(new_node)
     end
-    # connect nodes together by attaching
-    # new node to current node
-    current_node.next_node = Node.new(new_node)
-
+    new_node
   end
 
 
@@ -48,11 +55,15 @@ class LinkedList
   end
 
   def prepend(new_node)
+    if new_node == nil
+      return "This is not a valid request."
+    end
     current_node = head
     # @all_nodes << current_node.data
     node_to_prepend = Node.new(new_node)
     node_to_prepend.next_node = current_node
     @head = node_to_prepend
+    new_node
     # binding.pry
     # current_node = current_node.next_node
     # binding.pry
@@ -60,8 +71,10 @@ class LinkedList
   end
 
   def insert(position, node)
+    if node == nil || position > count
+      return "This is not a valid request."
+    end
     current_node = head
-    # node_data_collection = []
     node_to_insert = Node.new(node)
     if position == 0
       prepend
@@ -73,17 +86,20 @@ class LinkedList
     end
     node_to_insert.next_node = current_node.next_node
     current_node.next_node = node_to_insert
+    node
   end
 
   def find(position, how_many)
+    if position > count || how_many > count - position
+      return "This is not a valid request."
+    end
     # creates temporary head
     current_node = head
     # creates container
     node_request = []
     #slides along nodes and puts in container
-    until current_node == nil
+    unless current_node == nil
       (position).times do
-      # node_data_collection << current_node.data
       current_node = current_node.next_node
       end
 
@@ -112,6 +128,9 @@ class LinkedList
   end
 
   def pop(how_many = 1)
+    if how_many > count
+      return "This is not a valid request."
+    end 
     # how many nodes are there in total
     number_of_nodes = count
     # set temproary head
