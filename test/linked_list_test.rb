@@ -103,10 +103,12 @@ class LinkedListTest <Minitest::Test
   def test_insert_places_new_node_in_any_assigned_position
     list = LinkedList.new("purple")
     list.append("blue")
-    list.insert(1,"green")
+    assert_equal "green", list.insert(1,"green")
 
     assert_equal "purple green blue", list.to_string
   end
+
+
 
   def test_insert_rejects_an_argument_of_nil
     list = LinkedList.new("purple")

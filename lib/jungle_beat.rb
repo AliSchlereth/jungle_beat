@@ -2,6 +2,7 @@ require_relative 'linked_list'
 
 class JungleBeat
   attr_reader :beats, :list
+  attr_accessor :rate, :voice
 
   def initialize(beats = nil)
     # If I change nil to "" will it still pass the test?
@@ -9,6 +10,8 @@ class JungleBeat
     @beats = beats
     @list = LinkedList.new
     append(beats) if beats
+    rate = 500
+    voice = "Boing"
     # split_beats
   end
 
@@ -30,6 +33,48 @@ class JungleBeat
   def count
     list.count
   end
+
+  def prepend(new_beats)
+    beats = split_beats(new_beats)
+    beats.reverse.map do |beat|
+      list.prepend(beat)
+    end
+    new_beats
+  end
+
+  def include?(element)
+    list.include?(element)
+  end
+
+  def find(position, how_many)
+    list.find(position, how_many)
+  end
+
+  def pop(how_many)
+    list.pop(how_many)
+  end
+
+  def insert(position, node)
+    beats = split_beats(node)
+    beats.reverse.each do |beat|
+      list.insert(position, beat)
+    end
+    node
+  end
+
+  # def rate(rate)
+  #   rate
+  #   # changes the speed at which list is played
+  #   # takes an argument of a speed
+  #   # pass this on to play
+  # end
+  #
+  # def voice
+  #   voice
+  #   # change the voice used in play
+  #   # takes an argument of a voice type
+  #   # pass this on to play
+  # end
 
   def play
     `say -r 500 -v Boing #{list.to_string}`
