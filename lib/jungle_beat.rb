@@ -62,20 +62,6 @@ class JungleBeat
     node
   end
 
-  # def rate(rate)
-  #   rate
-  #   # changes the speed at which list is played
-  #   # takes an argument of a speed
-  #   # pass this on to play
-  # end
-  #
-  # def voice
-  #   voice
-  #   # change the voice used in play
-  #   # takes an argument of a voice type
-  #   # pass this on to play
-  # end
-
   def play
     `say -r 500 -v Boing #{list.to_string}`
   end
