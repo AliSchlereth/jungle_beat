@@ -30,7 +30,6 @@ class LinkedList
     new_node
   end
 
-
   def to_string
     current_node = head
     node_data_collection = []
@@ -71,22 +70,32 @@ class LinkedList
   end
 
   def insert(position, node)
-    if node == nil || position > count
-      return "This is not a valid request."
-    end
+    return "This is not a valid request." if node == nil || position > count
     current_node = head
-    node_to_insert = Node.new(node)
+    current_node = find_position(position, current_node)
+    attach_new_node(current_node, node)
+    node
+  end
+
+  def attach_new_node(current_node, node)
+    node_to_insert           = Node.new(node)
+    node_to_insert.next_node = current_node.next_node
+    current_node.next_node   = node_to_insert
+  end
+
+  def find_position(position, current_node)
     if position == 0
       prepend
     else
-    (position - 1).times do
-      # node_data_collection << current_node.data
-      current_node = current_node.next_node
-      end
+      slide_along_nodes(position,current_node)
     end
-    node_to_insert.next_node = current_node.next_node
-    current_node.next_node = node_to_insert
-    node
+  end
+
+  def slide_along_nodes(position, current_node)
+    (position - 1).times do
+      current_node = current_node.next_node
+    end
+    current_node
   end
 
   def find(position, how_many)
@@ -130,7 +139,7 @@ class LinkedList
   def pop(how_many = 1)
     if how_many > count
       return "This is not a valid request."
-    end 
+    end
     # how many nodes are there in total
     number_of_nodes = count
     # set temproary head
