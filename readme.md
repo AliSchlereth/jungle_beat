@@ -11,6 +11,8 @@ A linked list utilizing the following methods:
 
 To run this application, clone down this repository.
 From the command line:
+
+```ruby
 > require "./lib/jungle_beat"
 > jb = JungleBeat.new
 => <JungleBeat list=<LinkedList head=nil #234567890890> #456789045678>
@@ -22,3 +24,4 @@ From the command line:
 => 6
 > jb.play
 => # plays the sounds deep doo ditt woo hoo shu
+```
